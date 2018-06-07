@@ -6,7 +6,6 @@ import time
 import schedule
 import os
 import platform
-import vlc
 
 if os.name == 'nt':  # sys.platform == 'win32':
     from serial.tools.list_ports_windows import comports
@@ -39,19 +38,15 @@ while True:
 	plugged = battery.power_plugged
 	percent = str(battery.percent)
 
-	sound = vlc.MediaPlayer("audio/sound.mp3");
-
 	cikar = '0'
 	tak = '1'
 
 	if (plugged == True) and int(percent) >= 99:
 		print("Şarjınız tam dolu. Kablo çıkarılıyor...\n---------------------------------");
 		ser1.write(cikar)
-		sound.play()
 	elif (plugged == False) and int(percent) < 15:
 		print("Takılıyor...")
 		ser1.write(tak)
-		sound.play()
 		if plugged == True:
 			print("Takıldı")
 	else:
